@@ -15,10 +15,13 @@ const Menubar = (props) => {
         <Collapse isOpen={!collapsed} navbar>
           <Nav navbar>
             <NavItem>
-              <NavLink href="/components/">Components</NavLink>
+              <NavLink href="/components/">Login</NavLink>
             </NavItem>
             <NavItem>
-              <NavLink href="https://github.com/reactstrap/reactstrap">GitHub</NavLink>
+              <NavLink href="/components/">About web</NavLink>
+            </NavItem>
+            <NavItem>
+              <NavLink href="https://github.com/xkritti">GitHub</NavLink>
             </NavItem>
           </Nav>
         </Collapse>
