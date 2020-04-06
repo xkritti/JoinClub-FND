@@ -1,27 +1,35 @@
 .Main {
-max-height: 80vh;
 display: flex;
-flex-direction: column;
+flex-wrap: wrap;
+flex-direction: row;
 align-items: center;
+border-style: groove;
+height: 80vh;
 }
 
 .Title{
-  height: 40vh;
   display: flex;
   flex-direction: column;
+  flex-wrap: wrap;
   align-items: center;
+  
+  
 }
 
 .Club{
-  height: 40vh;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  border-style: outset;
+  border-color:  rgba(28,110,164,0.03);
+  border-radius: 10px;
+
 }
 
 .App-footer {
-  background-color: lightblue;
-  margin-top: 20px;
+  background-color: aquamarine;
   display: flex;
   flex: 1;
   flex-direction: column;
@@ -30,8 +38,11 @@ align-items: center;
   font-size: small;
   font-style: italic;
   color:darkblue;
+  border-style: dashed;
+  padding-top: 2.5vh;
+
 }
 
 .bg {
-  background-color:lightblue;
+  background-color:aquamarine;
 }
