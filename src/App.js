@@ -4,12 +4,28 @@ import './App.css';
 import Menubar from './component/Menubar';
 import Title from './component/Title'
 
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
+import Login from './component/Login';
+
+
 
 const App = () => {
   return (
     <div >
+
       <Menubar />
-        <Title />
+      <Router>
+        <Switch>
+          <Route exact path="/" component={Title} />
+          <Route path="/Login" component={Login} />
+        </Switch>
+      </Router>
+
       <Container className="App-footer" fluid={true}>
         <p>
           PSU-JoinClub miniproject for 240-311
@@ -21,5 +37,6 @@ const App = () => {
     </div>
   )
 }
+
 
 export default App;

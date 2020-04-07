@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink } from 'reactstrap';
 import '../App.css'
+import Login from './Login';
 
 const Menubar = (props) => {
   const [collapsed, setCollapsed] = useState(true);
@@ -15,10 +16,10 @@ const Menubar = (props) => {
         <Collapse isOpen={!collapsed} navbar>
           <Nav navbar>
             <NavItem>
-              <NavLink href="/components/">Login</NavLink>
+              <NavLink href="/Login">Login</NavLink>
             </NavItem>
             <NavItem>
-              <NavLink href="/components/">About web</NavLink>
+              <NavLink href="/AboutWeb">About web</NavLink>
             </NavItem>
             <NavItem>
               <NavLink href="https://github.com/xkritti">GitHub</NavLink>
