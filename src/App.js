@@ -1,40 +1,28 @@
 import React from 'react';
 import { Container } from 'reactstrap';
 import './App.css';
-import Menubar from './component/Menubar';
+// import Menubar from './component/Menubar';
 import Title from './component/Title'
-
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link
-} from "react-router-dom";
-import Login from './component/Login';
-
-
-
+import Logins from './component/Login';
+import Inputform from './component/InputForm';
+import { Provider } from 'react-redux'
+import store from './component/redux/ReduxClub'
+import { Switch, Route, BrowserRouter as Router } from "react-router-dom";
+import "bootstrap/dist/css/bootstrap.min.css";
 const App = () => {
   return (
-    <div >
+    <Provider store={store}>
+      <div >
+        <Router>
+          <Switch>
+            <Route exact path="/title" component={Title} />
+            <Route exact path="/" component={Logins} />
+            <Route exact path="/Input" component={Inputform} />
+          </Switch>
+        </Router>
+      </div>
+    </Provider>
 
-      <Menubar />
-      <Router>
-        <Switch>
-          <Route exact path="/" component={Title} />
-          <Route path="/Login" component={Login} />
-        </Switch>
-      </Router>
-
-      <Container className="App-footer" fluid={true}>
-        <p>
-          PSU-JoinClub miniproject for 240-311
-        </p>
-        <p>
-          CopyRigth Prince of songkla university , Phuket campus
-        </p>
-      </Container>
-    </div>
   )
 }
 
