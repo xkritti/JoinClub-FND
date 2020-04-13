@@ -39,6 +39,7 @@ const Title = () => {
     }
 
     useEffect(() => {
+        let IDuser = localStorage.getItem('IDuserpassport');
         let user = localStorage.getItem('userpassport');
         setUsername(user)
         resiveData()
@@ -56,7 +57,22 @@ const Title = () => {
         else {
             alert("Pls in put Detail of Club")
         }
+    }
 
+    const whois = (data) => {
+        let id = localStorage.getItem('IDuserpassport')
+        console.log(data)
+        if (id === '5935512001') {
+            return (
+                <Button color="danger" style={{ margin: '5px' }}
+                    onClick={() => {
+                        Action.deleteClub(data.id)
+                        setTimeout(() => {
+                            window.location.reload()
+                        }, 500)
+                    }}>Delete</Button>
+            )
+        }
     }
 
 
@@ -67,11 +83,11 @@ const Title = () => {
 
                 <a className="rainbow-text" style={{ fontSize: "50px" }}>Join Club</a>
                 <be />
-                <a style={{ fontSize: "25px",color:'white'}}> wellcome {username}</a>
+                <a style={{ fontSize: "20px", color: 'white' }}> wellcome {username}</a>
                 <Container className='Club' style={{ marginBottom: "50px" }}>
                     {
                         clubReduc.map((data, idx) => {
-                            console.log(data);
+                            // console.log(data);
                             return (
                                 <div key={idx}>
                                     <Row>
@@ -84,13 +100,7 @@ const Title = () => {
                                                 </CardBody>
                                                 <CardFooter style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center' }}>
                                                     <Button color="primary" style={{ margin: '5px' }}>Join</Button>
-                                                    <Button color="danger" style={{ margin: '5px' }}
-                                                        onClick={() => {
-                                                            Action.deleteClub(data.id)
-                                                            setTimeout(() => {
-                                                                window.location.reload()
-                                                            }, 500)
-                                                        }}>Delete</Button>
+                                                    {whois(data)}
                                                 </CardFooter>
                                             </Card>
                                         </Col>

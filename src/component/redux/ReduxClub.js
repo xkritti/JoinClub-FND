@@ -33,7 +33,7 @@ const getClub = {
 
 export const listAction = {
     login: (login) => async (dispatch) => {
-        const result = await axios.post(`http://localhost:8899/Login`, { ...login });
+        const result = await axios.post(`NGROKBACKEND/Login`, { ...login });
         const [id, name, surname] = [...result.data.GetStudentDetailsResult.string]
         dispatch({ type: 'LOGIN', id: id, username: name, surname: surname })
     },
@@ -41,29 +41,29 @@ export const listAction = {
         dispatch({ type: "LOGOUT" })
     },
     getClub: () => async (dispatch) => {
-        const response = await axios.get(`http://localhost:8899/clublist`)
+        const response = await axios.get(`NGROKBACKEND/clublist`)
         const responseBody = await response.data;
         dispatch({ type: "GET_CLUB", club_lists: responseBody });
     },
     addClub: (form) => async (dispatch) => {
-        await axios.post(`http://localhost:8899/clublist/`, { ...form })
+        await axios.post(`NGROKBACKEND/clublist/`, { ...form })
         dispatch({ type: "ADD_CLUB", club_list: { ...form } })
     },
     deleteClub: (idx) => async (dispatch) => {
-        await axios.delete(`http://localhost:8899/delete/${idx}`, idx)
+        await axios.delete(`NGROKBACKEND/delete/${idx}`, idx)
         dispatch({ type: "DELETE_CLUB", id: idx.id })
     },
     updateClub: (club_list) => async (dispatch) => {
-        await axios.put(`http://localhost:8899/update/${club_list.id}`, club_list)
+        await axios.put(`NGROKBACKEND/update/${club_list.id}`, club_list)
         dispatch({ type: 'UPDATE_CLUB', club_list: club_list, id: club_list.id })
     },
     updatePeople: (member) => async (dispatch) => {
-        await axios.put(`http://localhost:8899/update/${member.id}`, member)
+        await axios.put(`NGROKBACKEND/update/${member.id}`, member)
         dispatch({ type: 'UPDATE_PEOPLE', people: member })
     },
     showClub: (id) => async (dispatch) => {
         axios
-            .get(`http://localhost:8899/clublist/${id}`)
+            .get(`NGROKBACKEND/clublist/${id}`)
             .then(res => {
                 dispatch({ type: 'CHANGE_CLUB', club: res.data })
             })

@@ -21,7 +21,9 @@ function Login() {
         if (login.id) {
             history.push('/title')
             let userpassport = login.id + "  " + login.username + " " + login.surname
+            let IDuserpassport = login.id
             localStorage.setItem('userpassport', userpassport)
+            localStorage.setItem('IDuserpassport', IDuserpassport)
         }
         if (localStorage.getItem('userpassport') !== null) {
             history.push('/title')
