@@ -22,7 +22,7 @@
 .rainbow-bg{
   background-color: violet;
   text-align: center;
-  background-size: 800% 800%;
+  background-size: auto;
   animation: rainbow 5s infinite;
 }
 

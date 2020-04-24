@@ -33,7 +33,7 @@ const getClub = {
 
 export const listAction = {
     login: (login) => async (dispatch) => {
-        const result = await axios.post(`NGROKBACKEND/Login`, { ...login });
+        const result = await axios.post(`http://localhost:8899/Login`, { ...login });
         const [id, name, surname] = [...result.data.GetStudentDetailsResult.string]
         dispatch({ type: 'LOGIN', id: id, username: name, surname: surname })
     },
@@ -41,29 +41,38 @@ export const listAction = {
         dispatch({ type: "LOGOUT" })
     },
     getClub: () => async (dispatch) => {
-        const response = await axios.get(`NGROKBACKEND/clublist`)
+        const response = await axios.get(`http://localhost:8899/clublist`)
         const responseBody = await response.data;
         dispatch({ type: "GET_CLUB", club_lists: responseBody });
     },
     addClub: (form) => async (dispatch) => {
-        await axios.post(`NGROKBACKEND/clublist/`, { ...form })
+        await axios.post(`http://localhost:8899/clublist/`, { ...form })
         dispatch({ type: "ADD_CLUB", club_list: { ...form } })
     },
     deleteClub: (idx) => async (dispatch) => {
-        await axios.delete(`NGROKBACKEND/delete/${idx}`, idx)
+        axios.delete(`http://localhost:8899/delete/${idx}`, idx)
         dispatch({ type: "DELETE_CLUB", id: idx.id })
     },
     updateClub: (club_list) => async (dispatch) => {
-        await axios.put(`NGROKBACKEND/update/${club_list.id}`, club_list)
+        await axios.put(`http://localhost:8899/update/${club_list.id}`, club_list)
         dispatch({ type: 'UPDATE_CLUB', club_list: club_list, id: club_list.id })
     },
     updatePeople: (member) => async (dispatch) => {
-        await axios.put(`NGROKBACKEND/update/${member.id}`, member)
+        await axios.put(`http://localhost:8899/update/${member.id}`, member)
         dispatch({ type: 'UPDATE_PEOPLE', people: member })
+    },
+    updateMember: (member) => async (dispatch) => {
+        await axios.put(`http://localhost:8899/update/${member.id}`, member)
+        dispatch({
+            type: 'UPDATE_MEMBER', member_name: [{
+                name: member,
+                stdID: member
+            }]
+        })
     },
     showClub: (id) => async (dispatch) => {
         axios
-            .get(`NGROKBACKEND/clublist/${id}`)
+            .get(`http://localhost:8899/clublist/${id}`)
             .then(res => {
                 dispatch({ type: 'CHANGE_CLUB', club: res.data })
             })
@@ -111,7 +120,7 @@ const clubReduxClub = (data = [], action) => {
                 else
                     return club_list
             })
-        case "UPDATE_CLUB":
+        case "UPDATE_MEMBER":
             return data.map(club_list => {
                 if (+club_list.id === +action.id)
                     return action.club_list
@@ -128,27 +137,27 @@ const formReduxClub = (data = clubList, action) => {
         case "CHANGE_CLUB":
             return {
                 ...data,
-                activity: action.club_name
+                club: action.club_name
             }
         case "CHANGE_MEMBER":
             return {
                 ...data,
-                address: action.member_name
+                member: action.member_name
             }
         case "CHANGE_CLUBIMAGE":
             return {
                 ...data,
-                name: action.club_image
+                image: action.club_image
             }
         case "CHANGE_DES":
             return {
                 ...data,
-                name: action.club_des
+                description: action.club_des
             }
         case "CHANGE_PEOPLE":
             return {
                 ...data,
-                name: action.people
+                people: action.people
             }
         default:
             return data

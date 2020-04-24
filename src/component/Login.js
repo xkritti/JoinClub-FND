@@ -25,12 +25,9 @@ function Login() {
             localStorage.setItem('userpassport', userpassport)
             localStorage.setItem('IDuserpassport', IDuserpassport)
         }
-        if (localStorage.getItem('userpassport') !== null) {
-            history.push('/title')
-        }
-        else {
-            history.push('/')
-        }
+        // if (localStorage.getItem('userpassport') == null) {
+        //     history.push('/')
+        // }
     }, [login])
 
     const sendData = () => {
