@@ -7,7 +7,7 @@ import { useHistory } from 'react-router-dom'
 
 function Login() {
     const dispatch = useDispatch()
-    const ListAction = bindActionCreators(listAction, dispatch)
+    const Action = bindActionCreators(listAction, dispatch)
     const login = useSelector(state => state.login)
     const history = useHistory()
     const [userdata, setUser] = useState({
@@ -22,6 +22,8 @@ function Login() {
             history.push('/title')
             let userpassport = login.id + "  " + login.username + " " + login.surname
             let IDuserpassport = login.id
+            let Nameuser = login.username
+            localStorage.setItem('Nameuser', Nameuser)
             localStorage.setItem('userpassport', userpassport)
             localStorage.setItem('IDuserpassport', IDuserpassport)
         }
@@ -32,7 +34,7 @@ function Login() {
 
     const sendData = () => {
         if (userdata.username && userdata.password) {
-            ListAction.login(userdata)
+            Action.login(userdata)
         } if (!login.id) {
             setTimeout(() => {
                 setMessage("Incorrect user ID or password")

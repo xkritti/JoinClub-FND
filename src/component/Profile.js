@@ -2,16 +2,14 @@ import React, { useState, useEffect } from 'react'
 import '../App.css';
 import Menubar from './Menubar';
 import { Col, Row, Card, CardImg, CardBody } from 'reactstrap';
-import Login from './Login';
 import { useSelector } from 'react-redux';
 
 const Profile = () => {
 
     useEffect(() => {
-        console.log(login);
-    })
 
-    const login = useSelector(state => state.login)
+    }, [])
+
 
     return (
         <div>
@@ -22,7 +20,7 @@ const Profile = () => {
 
                     </CardImg>
                     <CardBody>
-    <h1>{login.id}</h1>
+                        <h1>{}</h1>
                     </CardBody>
                 </Card>
             </div>

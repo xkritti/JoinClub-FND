@@ -19,9 +19,10 @@ const Title = () => {
         people: 0
     })
     const clubReduc = useSelector(state => state.clubReduc)
-    const getClub = useSelector(state => state.getClub)
+
     const Action = bindActionCreators(listAction, useDispatch())
     const [idst, setIdst] = useState('')
+    const [mname, setMname] = useState('')
     // const [detail, setDetail] = useState({
     //     id: 1,
     //     club_name: '',
@@ -40,9 +41,11 @@ const Title = () => {
 
     useEffect(() => {
         let user = localStorage.getItem('userpassport');
-        adminset()
-        setUsername(user)
-        resiveData()
+        setIdst(localStorage.getItem('IDuserpassport'));
+        setMname(localStorage.getItem('Nameuser'));
+        adminset();
+        setUsername(user);
+        resiveData();
     }, [])
 
     const adminset = () => {
@@ -72,6 +75,20 @@ const Title = () => {
         }
     }
 
+    const updateDataClub = (id) => {
+        if (newData.club_name && newData.club_image && newData.club_des) {
+            newData.id = id
+            Action.updateClub(newData)
+            console.log(newData)
+            alert("newData.id  " + newData.id)
+            window.location.reload();
+        }
+        else {
+            alert("Pls in put Detail of Club")
+        }
+
+    }
+
     const Whoisbutton = (data) => {
         let Admin = localStorage.getItem('Admin');
         if (Admin == 'true') {
@@ -79,7 +96,8 @@ const Title = () => {
                 <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
                     <Button color="warning" style={{ margin: '1px', height: '30px' }}
                         onClick={() => {
-                            alert("Update :" + data.id + " : " + data.club_name)
+                            alert("Update :" + data.id + " name : " + data.club_name)
+                            updateDataClub(data.id)
                             setTimeout(() => {
                                 window.location.reload()
                             }, 1000)
@@ -100,8 +118,8 @@ const Title = () => {
     }
 
     const Whoisform = () => {
-        let id = localStorage.getItem('IDuserpassport')
-        if (id == '5935512001') {
+        let Admin = localStorage.getItem('Admin');
+        if (Admin == 'true') {
             return (
                 <Form style={{
                     display: "flex",
@@ -113,7 +131,7 @@ const Title = () => {
                     marginBottom: "20px",
                     borderRadius: "10px"
                 }}>
-                    <h1>AddClubForm</h1>
+                    <h3> Add & Edit Club </h3>
                     <FormGroup>
                         <Label>ClubName</Label>
                         <Input onChange={(e) => setNewData({ ...newData, club_name: e.target.value })} />
@@ -140,17 +158,30 @@ const Title = () => {
         return (
             <Button color="primary" style={{ margin: '2px' }}
                 onClick={() => {
-                    let id = localStorage.getItem('IDuserpassport')
-                    console.log(id);
-                    const newData = clubReduc.find(item => item.id === data)
-                    console.log(newData);
-                    setNewData({
-                        ...newData, member_name: [{
-                            name: "test",
-                            stdID: id
-                        }]
-                    })
-                    Action.updateMember({ ...newData })
+                    // let id = localStorage.getItem('IDuserpassport')
+                    // console.log(id);
+                    // const newData = clubReduc.find(item => item.id === data)
+                    // console.log(newData);
+                    // setNewData({
+                    //     ...newData, member_name: [{
+                    //         name: "test",
+                    //         stdID: id
+                    //     }]
+                    // })
+                    // Action.updateMember({ ...newData })
+                    console.log(data);
+                    console.log(idst);
+                    console.log(mname);
+
+                    if (idst == '5935512001') {
+                        newData.id = data.id
+
+                        // alert("Joine : " + newData.id + " : " + data.club_name)
+                        // alert("you Student ID : " + idst)
+                    }
+                    else {
+                        alert("You have joined")
+                    }
                 }
                 }> Join</Button >
         )
@@ -168,7 +199,7 @@ const Title = () => {
                 <Container className='Club' style={{ marginBottom: "50px" }}>
                     {
                         clubReduc.map((data, idx) => {
-                            // console.log(data);
+                            //  console.log(data);
                             return (
                                 <div key={idx}>
                                     <Row>
@@ -181,7 +212,7 @@ const Title = () => {
                                                     <a style={{ fontSize: "10px" }}>Total Member: {data.people}</a>
                                                 </CardBody>
                                                 <CardFooter style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center' }}>
-                                                    {JoinClub(data.id)}
+                                                    {JoinClub(data)}
                                                     {Whoisbutton(data)}
                                                 </CardFooter>
                                             </Card>
