@@ -65,8 +65,8 @@ export const listAction = {
         await axios.put(`http://localhost:8899/update/${member.id}`, member)
         dispatch({
             type: 'UPDATE_MEMBER', member_name: [{
-                name: member,
-                stdID: member
+                name: member.name,
+                stdID: member.stdID
             }]
         })
     },

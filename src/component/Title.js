@@ -19,33 +19,32 @@ const Title = () => {
         people: 0
     })
     const clubReduc = useSelector(state => state.clubReduc)
-
     const Action = bindActionCreators(listAction, useDispatch())
-    const [idst, setIdst] = useState('')
-    const [mname, setMname] = useState('')
-    // const [detail, setDetail] = useState({
-    //     id: 1,
-    //     club_name: '',
-    //     club_image: '',
-    //     club_des: '',
-    //     member_name: [{
-    //         name: "",
-    //         stdID: ""
-    //     }],
-    //     people: 0
-    // })
+    const [newMember, setnewMember] = useState({
+        name: '',
+        stdID: ''
+    })
 
     const resiveData = () => {
         Action.getClub()
     }
 
     useEffect(() => {
+
         let user = localStorage.getItem('userpassport');
-        setIdst(localStorage.getItem('IDuserpassport'));
-        setMname(localStorage.getItem('Nameuser'));
+
+        setnewMember({
+            name: localStorage.getItem('Nameuser'),
+            stdID: localStorage.getItem('IDuserpassport')
+        })
+
+
+
+
         adminset();
         setUsername(user);
         resiveData();
+
     }, [])
 
     const adminset = () => {
@@ -158,32 +157,47 @@ const Title = () => {
         return (
             <Button color="primary" style={{ margin: '2px' }}
                 onClick={() => {
-                    // let id = localStorage.getItem('IDuserpassport')
-                    // console.log(id);
-                    // const newData = clubReduc.find(item => item.id === data)
-                    // console.log(newData);
-                    // setNewData({
-                    //     ...newData, member_name: [{
-                    //         name: "test",
-                    //         stdID: id
-                    //     }]
-                    // })
-                    // Action.updateMember({ ...newData })
-                    console.log(data);
-                    console.log(idst);
-                    console.log(mname);
+                    const clubData = clubReduc.find(item => item.id === data.id)
 
-                    if (idst == '5935512001') {
-                        newData.id = data.id
+                    console.log(clubData);
+                    if (clubData.member_name[0] == undefined) {
+                        clubData.member_name.push({
+                            name: newMember.name,
+                            stdID: newMember.stdID
+                        })
+                        clubData.people = clubData.member_name.length
+                        let totalpeople = clubData.member_name.length
 
-                        // alert("Joine : " + newData.id + " : " + data.club_name)
-                        // alert("you Student ID : " + idst)
+                        setNewData({
+                            ...clubData
+                        })
+                        //Action.updateClub(clubData)
+                        console.log(clubData.member_name.stdID);
+                        console.log(newData)
+                        console.log(clubData)
+                    } else  {
+                        alert('เข้าชมรมแล้วจ้าาา')
                     }
-                    else {
-                        alert("You have joined")
-                    }
-                }
-                }> Join</Button >
+
+                    // if (memberStatus == false) {
+                    //     clubData.member_name.push({
+                    //         name: newMember.name,
+                    //         stdID: newMember.stdID
+                    //     })
+                    //     clubData.people = clubData.member_name.length
+                    //     let totalpeople = clubData.member_name.length
+
+                    //     setNewData({
+                    //         ...clubData
+                    //     })
+                    //     Action.updateClub(clubData)
+                    //     console.log(newData)
+                    //     console.log(clubData)
+                    // }
+                    // else {
+                    //     alert("you is club member alrady!!")
+                    // }
+                }}> Join</Button >
         )
     }
 
