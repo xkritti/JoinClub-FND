@@ -20,16 +20,13 @@ function Login() {
     useEffect(() => {
         if (login.id) {
             history.push('/title')
-            let userpassport = login.id + "  " + login.username + " " + login.surname
+            let userpassport = login.username + " " + login.surname
             let IDuserpassport = login.id
             let Nameuser = login.username
             localStorage.setItem('Nameuser', Nameuser)
             localStorage.setItem('userpassport', userpassport)
             localStorage.setItem('IDuserpassport', IDuserpassport)
         }
-        // if (localStorage.getItem('userpassport') == null) {
-        //     history.push('/')
-        // }
     }, [login])
 
     const sendData = () => {

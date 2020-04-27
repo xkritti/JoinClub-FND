@@ -2,6 +2,8 @@ import thunk from 'redux-thunk'
 import axios from "axios";
 import { createStore, combineReducers, applyMiddleware, compose } from 'redux'
 
+// const apiurl = 'https://joinclub.herokuapp.com/'
+
 const psupassLogin = {
     id: '',
     username: '',
@@ -33,7 +35,7 @@ const getClub = {
 
 export const listAction = {
     login: (login) => async (dispatch) => {
-        const result = await axios.post(`http://localhost:8899/Login`, { ...login });
+        const result = await axios.post(`https://joinclub.herokuapp.com/Login`, { ...login });
         const [id, name, surname] = [...result.data.GetStudentDetailsResult.string]
         dispatch({ type: 'LOGIN', id: id, username: name, surname: surname })
     },
@@ -41,28 +43,28 @@ export const listAction = {
         dispatch({ type: "LOGOUT" })
     },
     getClub: () => async (dispatch) => {
-        const response = await axios.get(`http://localhost:8899/clublist`)
+        const response = await axios.get(`https://joinclub.herokuapp.com/clublist`)
         const responseBody = await response.data;
         dispatch({ type: "GET_CLUB", club_lists: responseBody });
     },
     addClub: (form) => async (dispatch) => {
-        await axios.post(`http://localhost:8899/clublist/`, { ...form })
+        await axios.post(`https://joinclub.herokuapp.com/clublist/`, { ...form })
         dispatch({ type: "ADD_CLUB", club_list: { ...form } })
     },
     deleteClub: (idx) => async (dispatch) => {
-        axios.delete(`http://localhost:8899/delete/${idx}`, idx)
+        axios.delete(`https://joinclub.herokuapp.com/delete/${idx}`, idx)
         dispatch({ type: "DELETE_CLUB", id: idx.id })
     },
     updateClub: (club_list) => async (dispatch) => {
-        await axios.put(`http://localhost:8899/update/${club_list.id}`, club_list)
+        await axios.put(`https://joinclub.herokuapp.com/update/${club_list.id}`, club_list)
         dispatch({ type: 'UPDATE_CLUB', club_list: club_list, id: club_list.id })
     },
     updatePeople: (member) => async (dispatch) => {
-        await axios.put(`http://localhost:8899/update/${member.id}`, member)
+        await axios.put(`https://joinclub.herokuapp.com/update/${member.id}`, member)
         dispatch({ type: 'UPDATE_PEOPLE', people: member })
     },
     updateMember: (member) => async (dispatch) => {
-        await axios.put(`http://localhost:8899/update/${member.id}`, member)
+        await axios.put(`https://joinclub.herokuapp.com/update/${member.id}`, member)
         dispatch({
             type: 'UPDATE_MEMBER', member_name: [{
                 name: member.name,
@@ -72,7 +74,7 @@ export const listAction = {
     },
     showClub: (id) => async (dispatch) => {
         axios
-            .get(`http://localhost:8899/clublist/${id}`)
+            .get(`https://joinclub.herokuapp.com/clublist/${id}`)
             .then(res => {
                 dispatch({ type: 'CHANGE_CLUB', club: res.data })
             })

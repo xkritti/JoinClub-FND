@@ -50,7 +50,7 @@ const Title = () => {
     const adminset = () => {
         let IDuser = localStorage.getItem('IDuserpassport');
         let admin
-        if (IDuser == '5935512001') {
+        if (IDuser == '-') {
             admin = true
             localStorage.setItem('Admin', admin)
         } else {
@@ -209,7 +209,7 @@ const Title = () => {
 
                 <a className="rainbow-text" style={{ fontSize: "50px" }}>Join Club</a>
                 <be />
-                <a style={{ fontSize: "20px", color: 'white' }}> wellcome {username}</a>
+                <a style={{ fontSize: "20px", color: 'white' }}> ยินดีต้อนรับ {newMember.name}</a>
                 <Container className='Club' style={{ marginBottom: "50px" }}>
                     {
                         clubReduc.map((data, idx) => {
