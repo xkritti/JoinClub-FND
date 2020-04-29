@@ -12,19 +12,13 @@ const clubList = {
     club_name: '',
     club_image: '',
     club_des: '',
-    member_name: [{
-        name: "",
-        stdID: ""
-    }],
+    member_name: [],
     people: 0
 }
 
 const getClub = {
     club_name: '',
-    member_name: [{
-        name: "",
-        stdID: ""
-    }],
+    member_name: [],
     club_image: '',
     club_des: '',
     id: 0,

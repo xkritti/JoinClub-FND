@@ -15,10 +15,7 @@ const Title = () => {
         club_name: '',
         club_image: '',
         club_des: '',
-        member_name: [{
-            name: "",
-            stdID: ""
-        }],
+        member_name: [],
         people: 0
     })
     const clubReduc = useSelector(state => state.clubReduc)
