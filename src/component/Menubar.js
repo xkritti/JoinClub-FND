@@ -8,7 +8,7 @@ import { useHistory } from 'react-router-dom'
 
 function Menubar(props) {
 
-  const ListAction = bindActionCreators(listAction, useDispatch())
+  const Action = bindActionCreators(listAction, useDispatch())
   const login = useSelector(state => state.login)
   const history = useHistory()
   const [Idpsupass, setIdpsupass] = useState('')
@@ -18,17 +18,22 @@ function Menubar(props) {
   const toggle = () => setIsOpen(!isOpen);
 
   const logouts = () => {
-    ListAction.logout()
-    if (login.id === "") {
+    Action.logout()
+    if (login.username == undefined) {
       localStorage.removeItem('IDuserpassport')
-      history.push('/')
+      localStorage.removeItem('Nameuser')
+      localStorage.removeItem('userpassport')
+      localStorage.removeItem('Admin')
+      console.log('clear all in localStorage');
     }
+    let user = null
+    setIdpsupass(user)
   }
 
   useEffect(() => {
     let user = localStorage.getItem('IDuserpassport');
     setIdpsupass(user)
-    if (Idpsupass == null) {
+    if (Idpsupass == null || undefined) {
       history.push('/')
     }
   }, [Idpsupass])
@@ -48,14 +53,14 @@ function Menubar(props) {
             <NavItem style={{ marginLeft: "10px" }}>
               <NavLink href="/Profile">{Idpsupass}</NavLink>
             </NavItem>
-            <NavItem style={{ marginLeft: "10px" }}>
+            {/* <NavItem style={{ marginLeft: "10px" }}>
               <NavLink href="/AboutWeb">About web</NavLink>
-            </NavItem>
+            </NavItem> */}
             <NavItem style={{ marginLeft: "10px" }}>
               <NavLink href="https://github.com/xkritti">GitHub</NavLink>
             </NavItem>
             <NavItem style={{ marginLeft: "10px" }}>
-              <Button color="danger" onClick={logouts}>Logout</Button>
+              <Button color="danger" size="sm" onClick={logouts}>Logout</Button>
             </NavItem>
           </Nav>
         </Collapse>

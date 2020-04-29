@@ -2,8 +2,6 @@ import thunk from 'redux-thunk'
 import axios from "axios";
 import { createStore, combineReducers, applyMiddleware, compose } from 'redux'
 
-// const apiurl = 'https://joinclub.herokuapp.com/'
-
 const psupassLogin = {
     id: '',
     username: '',
@@ -59,19 +57,6 @@ export const listAction = {
         await axios.put(`https://joinclub.herokuapp.com/update/${club_list.id}`, club_list)
         dispatch({ type: 'UPDATE_CLUB', club_list: club_list, id: club_list.id })
     },
-    updatePeople: (member) => async (dispatch) => {
-        await axios.put(`https://joinclub.herokuapp.com/update/${member.id}`, member)
-        dispatch({ type: 'UPDATE_PEOPLE', people: member })
-    },
-    updateMember: (member) => async (dispatch) => {
-        await axios.put(`https://joinclub.herokuapp.com/update/${member.id}`, member)
-        dispatch({
-            type: 'UPDATE_MEMBER', member_name: [{
-                name: member.name,
-                stdID: member.stdID
-            }]
-        })
-    },
     showClub: (id) => async (dispatch) => {
         axios
             .get(`https://joinclub.herokuapp.com/clublist/${id}`)
@@ -79,11 +64,6 @@ export const listAction = {
                 dispatch({ type: 'CHANGE_CLUB', club: res.data })
             })
     },
-    change_club_name: (s) => ({ type: 'CHANGE_CLUB', club_name: s }),
-    change_member_name: (s) => ({ type: 'CHANGE_MEMBER', member_name: s }),
-    change_club_image: (s) => ({ type: 'CHANGE_CLUBIMAGE', club_image: s }),
-    change_club_des: (s) => ({ type: 'CHANGE_DES', club_des: s }),
-    change_people: (s) => ({ type: 'CHANGE_PEOPLE', people: s })
 }
 
 const loginReduxClub = (data = psupassLogin, action) => {
@@ -98,9 +78,9 @@ const loginReduxClub = (data = psupassLogin, action) => {
         case "LOGOUT":
             return {
                 ...data,
-                id: '',
-                username: '',
-                surname: ''
+                id: undefined,
+                username: undefined,
+                surname: undefined
             }
         default:
             return data

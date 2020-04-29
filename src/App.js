@@ -1,16 +1,16 @@
-import React from 'react';
-import { Container } from 'reactstrap';
+import React, { useEffect } from 'react';
 import './App.css';
-// import Menubar from './component/Menubar';
 import Title from './component/Title'
 import Login from './component/Login'
 import Inputform from './component/InputForm'
 import Profile from './component/Profile'
-import { Provider } from 'react-redux'
 import store from './component/redux/ReduxClub'
 import { Switch, Route, BrowserRouter as Router } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { Provider } from 'react-redux'
+
 const App = () => {
+
   return (
     <Provider store={store}>
       <div >

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Col, Row, Button, Form, FormGroup, Label, Input, Container } from 'reactstrap';
+import { Col, Row, Button, Form, FormGroup, Label, Input, Container, ListGroupItemHeading } from 'reactstrap';
 import { bindActionCreators } from 'redux';
 import { listAction } from './redux/ReduxClub'
 import { connect, useDispatch, useSelector } from 'react-redux';
@@ -19,13 +19,17 @@ function Login() {
 
     useEffect(() => {
         if (login.id) {
-            history.push('/title')
             let userpassport = login.username + " " + login.surname
             let IDuserpassport = login.id
             let Nameuser = login.username
             localStorage.setItem('Nameuser', Nameuser)
             localStorage.setItem('userpassport', userpassport)
             localStorage.setItem('IDuserpassport', IDuserpassport)
+            history.push('/title')
+            console.log(login.id);
+        }
+        else {
+            history.push('/')
         }
     }, [login])
 

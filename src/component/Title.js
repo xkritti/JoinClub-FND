@@ -5,7 +5,10 @@ import Menubar from './Menubar';
 import { bindActionCreators } from 'redux';
 import ReduxClub, { listAction } from './redux/ReduxClub'
 import { useDispatch, useSelector } from 'react-redux';
+import { useAlert } from 'react-alert';
+import Login from './Login';
 const Title = () => {
+    const aleartpopup = useAlert();
     const [username, setUsername] = useState('')
     const [newData, setNewData] = useState({
         id: 0,
@@ -25,32 +28,29 @@ const Title = () => {
         stdID: ''
     })
 
-    const resiveData = () => {
-        Action.getClub()
-    }
+
 
     useEffect(() => {
-
         let user = localStorage.getItem('userpassport');
-
         setnewMember({
             name: localStorage.getItem('Nameuser'),
             stdID: localStorage.getItem('IDuserpassport')
         })
-
-
-
-
         adminset();
         setUsername(user);
+
         resiveData();
 
     }, [])
 
+    const resiveData = () => {
+        Action.getClub()
+    }
+
     const adminset = () => {
         let IDuser = localStorage.getItem('IDuserpassport');
         let admin
-        if (IDuser == '-') {
+        if (IDuser === '5935512001') {
             admin = true
             localStorage.setItem('Admin', admin)
         } else {
@@ -58,7 +58,6 @@ const Title = () => {
             localStorage.setItem('Admin', admin)
         }
     }
-
 
     const sendNewdata = () => {
         let id = (clubReduc.length === 0) ? 1 : clubReduc[clubReduc.length - 1].id + 1
@@ -93,7 +92,7 @@ const Title = () => {
         if (Admin == 'true') {
             return (
                 <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
-                    <Button color="warning" style={{ margin: '1px', height: '30px' }}
+                    <Button color="warning" size="sm" style={{ margin: '1px' }}
                         onClick={() => {
                             alert("Update :" + data.id + " name : " + data.club_name)
                             updateDataClub(data.id)
@@ -101,7 +100,7 @@ const Title = () => {
                                 window.location.reload()
                             }, 1000)
                         }}>Update</Button>
-                    <Button color="danger" style={{ margin: '1px', height: '30px' }}
+                    <Button color="danger" size="sm" style={{ margin: '1px' }}
                         onClick={() => {
                             alert("Delete :" + data.id + " : " + data.club_name)
                             Action.deleteClub(data.id)
@@ -157,48 +156,48 @@ const Title = () => {
         return (
             <Button color="primary" style={{ margin: '2px' }}
                 onClick={() => {
-                    const clubData = clubReduc.find(item => item.id === data.id)
 
-                    console.log(clubData);
+                    const clubData = clubReduc.find(item => item.id === data.id)
                     if (clubData.member_name[0] == undefined) {
                         clubData.member_name.push({
                             name: newMember.name,
                             stdID: newMember.stdID
                         })
                         clubData.people = clubData.member_name.length
-                        let totalpeople = clubData.member_name.length
-
                         setNewData({
                             ...clubData
                         })
-                        //Action.updateClub(clubData)
-                        console.log(clubData.member_name.stdID);
-                        console.log(newData)
-                        console.log(clubData)
-                    } else  {
-                        alert('เข้าชมรมแล้วจ้าาา')
+
+                        Action.updateClub(clubData)
+                        aleartpopup.show('You have joined')
+
                     }
 
-                    // if (memberStatus == false) {
-                    //     clubData.member_name.push({
-                    //         name: newMember.name,
-                    //         stdID: newMember.stdID
-                    //     })
-                    //     clubData.people = clubData.member_name.length
-                    //     let totalpeople = clubData.member_name.length
+                    else {
+                        const result = clubData.member_name.find((member) => {
+                            return member.name == newMember.name
+                        });
 
-                    //     setNewData({
-                    //         ...clubData
-                    //     })
-                    //     Action.updateClub(clubData)
-                    //     console.log(newData)
-                    //     console.log(clubData)
-                    // }
-                    // else {
-                    //     alert("you is club member alrady!!")
-                    // }
+                        if (result == undefined || null) {
+                            clubData.member_name.push({
+                                name: newMember.name,
+                                stdID: newMember.stdID
+                            })
+                            clubData.people = clubData.member_name.length
+
+                            setNewData({
+                                ...clubData
+                            })
+                            Action.updateClub(clubData)
+                            aleartpopup.show('You have joined')
+                        }
+                        else {
+                            aleartpopup.error('You are alrady joined ' + clubData.club_name)
+                        }
+                    }
                 }}> Join</Button >
         )
+
     }
 
 
@@ -213,7 +212,7 @@ const Title = () => {
                 <Container className='Club' style={{ marginBottom: "50px" }}>
                     {
                         clubReduc.map((data, idx) => {
-                            //  console.log(data);
+                            console.log(data);
                             return (
                                 <div key={idx}>
                                     <Row>
