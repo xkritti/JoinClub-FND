@@ -65,8 +65,9 @@ const Title = () => {
             newData.id = id
             Action.addClub(newData)
             console.log(newData)
-            alert("ID Club is " + clubReduc.length)
-            window.location.reload();
+            setTimeout(() => {
+                window.location.reload()
+            }, 1000)
         }
         else {
             alert("Pls in put Detail of Club")
@@ -98,7 +99,7 @@ const Title = () => {
                             updateDataClub(data.id)
                             setTimeout(() => {
                                 window.location.reload()
-                            }, 1000)
+                            }, 1500)
                         }}>Update</Button>
                     <Button color="danger" size="sm" style={{ margin: '1px' }}
                         onClick={() => {
@@ -106,7 +107,7 @@ const Title = () => {
                             Action.deleteClub(data.id)
                             setTimeout(() => {
                                 window.location.reload()
-                            }, 1000)
+                            }, 1500)
                         }}>Delete</Button>
                 </div >
             )
@@ -145,6 +146,9 @@ const Title = () => {
                     <Button color="success"
                         onClick={() => {
                             sendNewdata()
+                            setTimeout(() => {
+                                window.location.reload()
+                            }, 1500)
                         }}>Submit</Button>
                 </Form>
             )
@@ -195,6 +199,9 @@ const Title = () => {
                             aleartpopup.error('You are alrady joined ' + clubData.club_name)
                         }
                     }
+                    setTimeout(() => {
+                        window.location.reload()
+                    }, 1500)
                 }}> Join</Button >
         )
 
