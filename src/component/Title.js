@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import '../App.css';
-import { Row, Col, Container, Card, CardBody, CardFooter, CardImg, Button, Form, FormGroup, Label, Input, Alert } from 'reactstrap'
+import { Row, Col, Container, Card, CardBody, CardFooter, CardImg, Button, Form, FormGroup, Label, Input} from 'reactstrap'
 import Menubar from './Menubar';
 import { bindActionCreators } from 'redux';
-import ReduxClub, { listAction } from './redux/ReduxClub'
+import { listAction } from './redux/ReduxClub'
 import { useDispatch, useSelector } from 'react-redux';
 import { useAlert } from 'react-alert';
-import Login from './Login';
-import Inputsome from './InputForm';
+
 const Title = () => {
     const aleartpopup = useAlert();
     const [username, setUsername] = useState('')
@@ -57,20 +56,20 @@ const Title = () => {
         }
     }
 
-    // const sendNewdata = () => {
-    //     let id = (clubReduc.length === 0) ? 1 : clubReduc[clubReduc.length - 1].id + 1
-    //     if (newData.club_name && newData.club_image && newData.club_des) {
-    //         newData.id = id
-    //         Action.addClub(newData)
-    //         console.log(newData)
-    //         setTimeout(() => {
-    //             window.location.reload()
-    //         }, 1000)
-    //     }
-    //     else {
-    //         alert("Pls in put Detail of Club")
-    //     }
-    // }
+    const sendNewdata = () => {
+        let id = (clubReduc.length === 0) ? 1 : clubReduc[clubReduc.length - 1].id + 1
+        if (newData.club_name && newData.club_image && newData.club_des) {
+            newData.id = id
+            Action.addClub(newData)
+            console.log(newData)
+            setTimeout(() => {
+                window.location.reload()
+            }, 1000)
+        }
+        else {
+            alert("Pls in put Detail of Club")
+        }
+    }
 
     const updateDataClub = (id) => {
         if (newData.club_name && newData.club_image && newData.club_des) {
@@ -114,42 +113,50 @@ const Title = () => {
     }
 
     const Whoisform = () => {
-        // let Admin = localStorage.getItem('Admin');
-        // if (Admin == 'true') {
-        //     return (
-        //         <Form style={{
-        //             display: "flex",
-        //             flexDirection: "column",
-        //             justifyItems: "center",
-        //             alignContent: "center",
-        //             backgroundColor: "white",
-        //             padding: "50px",
-        //             marginBottom: "20px",
-        //             borderRadius: "10px"
-        //         }}>
-        //             <h3> Add & Edit Club </h3>
-        //             <FormGroup>
-        //                 <Label>ClubName</Label>
-        //                 <Input onChange={(e) => setNewData({ ...newData, club_name: e.target.value })} />
-        //             </FormGroup>
-        //             <FormGroup>
-        //                 <Label>ClubPicture</Label>
-        //                 <Input onChange={(e) => setNewData({ ...newData, club_image: e.target.value })} />
-        //             </FormGroup>
-        //             <FormGroup>
-        //                 <Label>ClubDescription</Label>
-        //                 <Input onChange={(e) => setNewData({ ...newData, club_des: e.target.value })} />
-        //             </FormGroup>
-        //             <Button color="success"
-        //                 onClick={() => {
-        //                     sendNewdata()
-        //                     setTimeout(() => {
-        //                         window.location.reload()
-        //                     }, 1500)
-        //                 }}>Submit</Button>
-        //         </Form>
-        //     )
-        // }
+        let Admin = localStorage.getItem('Admin');
+        if (Admin == 'true') {
+            return (
+                <Form style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyItems:'center',
+                    alignContent: "center",
+                    backgroundColor: "white",
+                    padding: "20px",
+                    marginBottom: "20px",
+                    borderStyle:'solid',
+                    borderRadius: "5px",
+                    width:'40%'
+                }}>
+                    <h3> Add & Edit Club </h3>
+                    <FormGroup>
+                        <Label>ClubName</Label>
+                        <Input onChange={(e) => setNewData({ ...newData, club_name: e.target.value })} />
+                    </FormGroup>
+                    <FormGroup>
+                        <Label>ClubPicture</Label>
+                        <Input onChange={(e) => setNewData({ ...newData, club_image: e.target.value })} />
+                    </FormGroup>
+                    <FormGroup>
+                        <Label>ClubDescription</Label>
+                        <Input onChange={(e) => setNewData({ ...newData, club_des: e.target.value })} />
+                    </FormGroup>
+                    <Button color="success" size='sm'
+                        onClick={() => {
+                            sendNewdata()
+                            setTimeout(() => {
+                                window.location.reload()
+                            }, 1500)
+                        }}>Submit</Button>
+                </Form>
+            )
+        }
+        else {
+            return (
+                <CardImg style={{width:"30%"}} src="https://image.freepik.com/free-vector/pensive-businessman-making-decision_74855-5283.jpg" />
+            )
+    
+        }
     }
 
 
@@ -208,12 +215,12 @@ const Title = () => {
     return (
         <div>
             <Menubar />
-            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', minHeight: "80vh" }}>
+            <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center', minHeight: "80vh" }}>
 
                 <a className="rainbow-text" style={{ fontSize: "50px" }}>Join Club</a>
                 <be />
                 <a style={{ fontSize: "20px"}}> ยินดีต้อนรับ {newMember.name}</a>
-                <Container className='Club' style={{ marginBottom: "10px" }}>
+                <Container className='Club' style={{ marginBottom: "20px" }}>
                     {
                         clubReduc.map((data, idx) => {
                             console.log(data);
@@ -221,7 +228,7 @@ const Title = () => {
                                 <div key={idx}>
                                     <Row>
                                         <Col>
-                                            <Card style={{ display: 'flex', width: '165px', maxHeight: '360px', margin: '15px' }}>
+                                            <Card style={{ display: 'flex', width: '165px', maxHeight: '350px', margin: '15px' }}>
                                                 <CardImg top width="100%" src={data.club_image} alt="Card image cap" />
                                                 <CardBody style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', borderStyle: "groove" }}>
                                                     <a className="rainbow-text" >{data.id + 1}:{data.club_name}</a>
@@ -240,7 +247,7 @@ const Title = () => {
                         }).reverse()
                     }
                 </Container>
-                <Inputsome/>
+                {Whoisform()}
             </div>
             <footer className="App-footer">
                 <p className='rainbow-text' style={{ fontSize: "x-large" }}>PSU-JoinClub miniproject for 240-311</p>
