@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import '../App.css';
 import Menubar from './Menubar';
-import { Col, Row, Card, CardImg, CardBody, CardFooter, Button, Container } from 'reactstrap';
+import { Card, CardImg,Button, Container } from 'reactstrap';
 
 import { bindActionCreators } from 'redux';
 import { useDispatch, useSelector } from 'react-redux';
-import ReduxClub, { listAction } from './redux/ReduxClub'
-import { useHistory, Link } from 'react-router-dom'
+import { listAction } from './redux/ReduxClub'
+import { useHistory} from 'react-router-dom'
 
 const Profile = () => {
     const [userdata, setuserdata] = useState({
@@ -34,7 +34,6 @@ const Profile = () => {
             stdID: localStorage.getItem('IDuserpassport')
         })
 
-        // login check
         let user = localStorage.getItem('IDuserpassport');
         setIdpsupass(user)
         if (Idpsupass == null || undefined) {
@@ -52,7 +51,6 @@ const Profile = () => {
                 <Container style={{ display: 'flex', flexWrap: 'wrap', marginTop: '5px', justifyContent: 'center' }}>
                     {whatjoin()}
                 </Container>
-
             </Card>
         )
     }
@@ -78,8 +76,7 @@ const Profile = () => {
                     }
                     else {
                         console.log('null');
-
-
+                        count += 1;
                     }
                 }
                 else {

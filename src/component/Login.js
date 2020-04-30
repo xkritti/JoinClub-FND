@@ -1,15 +1,17 @@
 import React, { useState, useEffect } from 'react';
-import { Col, Row, Button, Form, FormGroup, Label, Input, Container, ListGroupItemHeading } from 'reactstrap';
+import { Col, Row, Button, Form, FormGroup, Label, Input, Container } from 'reactstrap';
 import { bindActionCreators } from 'redux';
 import { listAction } from './redux/ReduxClub'
 import { connect, useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom'
 
 function Login() {
+
     const dispatch = useDispatch()
     const Action = bindActionCreators(listAction, dispatch)
     const login = useSelector(state => state.login)
     const history = useHistory()
+    
     const [userdata, setUser] = useState({
         username: "",
         password: ""
@@ -39,7 +41,7 @@ function Login() {
         } if (!login.id) {
             setTimeout(() => {
                 setMessage("Incorrect user ID or password")
-            }, 4000)
+            }, 5000)
         }
         else {
             setMessage("Incorrect user ID or password")
@@ -47,7 +49,7 @@ function Login() {
     }
 
     return (
-        <div className="rainbow-bg" style={{ display: "flex", flexDirection: "column", height: "90vh", justifyContent: "center", height: "100vh" }}>
+        <div className="rainbow-bg" style={{ display: "flex", flexDirection: "column", justifyContent: "center", height: "100vh" }}>
             <Container style={{ width: "50vh", borderWidth: "40px", borderStyle: "outset", padding: "10px", backgroundColor: "white" }}>
                 <Form>
                     <Row>

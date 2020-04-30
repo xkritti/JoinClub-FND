@@ -47,7 +47,7 @@ const Title = () => {
     const adminset = () => {
         let IDuser = localStorage.getItem('IDuserpassport');
         let admin
-        if (IDuser === '5935512001') {
+        if (IDuser == '5935512001') {
             admin = true
             localStorage.setItem('Admin', admin)
         } else {
@@ -62,9 +62,6 @@ const Title = () => {
             newData.id = id
             Action.addClub(newData)
             console.log(newData)
-            setTimeout(() => {
-                window.location.reload()
-            }, 1000)
         }
         else {
             alert("Pls in put Detail of Club")
@@ -146,7 +143,7 @@ const Title = () => {
                             sendNewdata()
                             setTimeout(() => {
                                 window.location.reload()
-                            }, 1500)
+                            }, 2000)
                         }}>Submit</Button>
                 </Form>
             )

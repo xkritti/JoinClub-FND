@@ -11,29 +11,29 @@ function Menubar(props) {
   const Action = bindActionCreators(listAction, useDispatch())
   const login = useSelector(state => state.login)
   const history = useHistory()
-  const [Idpsupass, setIdpsupass] = useState('')
+  const [Idpsupass, setIdpsupass] = useState(null)
 
   const [isOpen, setIsOpen] = useState(false);
 
   const toggle = () => setIsOpen(!isOpen);
 
   const logouts = () => {
-    Action.logout()
-    if (login.username == undefined) {
-      localStorage.removeItem('IDuserpassport')
-      localStorage.removeItem('Nameuser')
-      localStorage.removeItem('userpassport')
-      localStorage.removeItem('Admin')
-      console.log('clear all in localStorage');
-    }
-    let user = null
+    localStorage.removeItem('IDuserpassport')
+    localStorage.removeItem('Nameuser')
+    localStorage.removeItem('userpassport')
+    localStorage.removeItem('Admin')
+    let user = undefined
     setIdpsupass(user)
+    Action.logout()
+    setTimeout(() => {
+      window.location.reload()
+    }, 2000)
   }
 
   useEffect(() => {
     let user = localStorage.getItem('IDuserpassport');
     setIdpsupass(user)
-    if (Idpsupass == null || undefined) {
+    if (user == null || undefined) {
       history.push('/')
     }
   }, [Idpsupass])
