@@ -108,38 +108,6 @@ const clubReduxClub = (data = [], action) => {
     }
 }
 
-const formReduxClub = (data = clubList, action) => {
-    switch (action.type) {
-        case "CHANGE_CLUB":
-            return {
-                ...data,
-                club: action.club_name
-            }
-        case "CHANGE_MEMBER":
-            return {
-                ...data,
-                member: action.member_name
-            }
-        case "CHANGE_CLUBIMAGE":
-            return {
-                ...data,
-                image: action.club_image
-            }
-        case "CHANGE_DES":
-            return {
-                ...data,
-                description: action.club_des
-            }
-        case "CHANGE_PEOPLE":
-            return {
-                ...data,
-                people: action.people
-            }
-        default:
-            return data
-    }
-}
-
 const getReduxClub = (data = getClub, action) => {
     switch (action.type) {
         case "CHANGE_CLUB":
@@ -153,7 +121,6 @@ const getReduxClub = (data = getClub, action) => {
 
 const rootReduxClub = combineReducers({
     login: loginReduxClub,
-    formClub: formReduxClub,
     clubReduc: clubReduxClub,
     getClub: getReduxClub
 })
